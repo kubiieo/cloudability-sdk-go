@@ -1,3 +1,3 @@
-module github.com/skyscrapr/cloudability-sdk-go
+module github.com/kubiieo/cloudability-sdk-go
 
 go 1.18
