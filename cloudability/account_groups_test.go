@@ -6,7 +6,7 @@ import (
 )
 
 func TestNewAccountGroupsEndpoint(t *testing.T) {
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "us")
 	e := testClient.AccountGroups()
 	if e.BaseURL.String() != apiV1URL {
 		t.Errorf("AccountGroupsEndpoint BaseURL mismatch. Got %s. Expected %s", e.BaseURL.String(), apiV1URL)
@@ -89,7 +89,7 @@ func TestNewAccountGroup(t *testing.T) {
 		Name:     "purple",
 		Position: 5,
 	}
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.AccountGroups()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	err := e.NewAccountGroup(accountGroup)
@@ -105,7 +105,7 @@ func TestUpdateAccountGroup(t *testing.T) {
 		ID:   1,
 		Name: "more purple",
 	}
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.AccountGroups()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	err := e.UpdateAccountGroup(accountGroup)
@@ -117,7 +117,7 @@ func TestUpdateAccountGroup(t *testing.T) {
 func TestDeleteAccountGroup(t *testing.T) {
 	testServer := testAPI(t, "DELETE", "/account_groups/1", nil)
 	defer testServer.Close()
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "us")
 	e := testClient.AccountGroups()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	err := e.DeleteAccountGroup(1)

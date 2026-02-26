@@ -10,7 +10,7 @@ func TestNewClient(t *testing.T) {
 	duration := 30 * time.Second
 	userAgent := "cloudability-sdk-go"
 	apikey := "testapikey"
-	testClient := NewClient(apikey)
+	testClient := NewClient(apikey, "")
 	if testClient.Client.Timeout != duration {
 		t.Errorf("HTTP client timeout mismatch. Got %s. Expected %s", testClient.Client.Timeout, duration)
 	}
@@ -26,7 +26,7 @@ func TestSetTimeout(t *testing.T) {
 	duration := 60 * time.Second
 	userAgent := "cloudability-sdk-go"
 	apikey := "testapikey"
-	testClient := NewClient(apikey)
+	testClient := NewClient(apikey, "eu")
 	testClient.SetTimeout(duration)
 	if testClient.Client.Timeout != duration {
 		t.Errorf("HTTP client timeout mismatch. Got %s. Expected %s", testClient.Client.Timeout, duration)
@@ -43,7 +43,7 @@ func TestNewEndpoint(t *testing.T) {
 	baseURL, _ := url.Parse("api.test.com")
 	endpointPath := "test-endpoint"
 	apikey := "testapikey"
-	testClient := NewClient(apikey)
+	testClient := NewClient(apikey, "")
 	e := newEndpoint(testClient, baseURL, endpointPath)
 	if e.BaseURL.String() != baseURL.String() {
 		t.Errorf("Endpoint BaseURL mismatch. Got %s. Expected %s", e.BaseURL.String(), baseURL)
@@ -56,7 +56,7 @@ func TestNewEndpoint(t *testing.T) {
 func TestNewV1Endpoint(t *testing.T) {
 	endpointPath := "test-endpoint"
 	apikey := "testapikey"
-	testClient := NewClient(apikey)
+	testClient := NewClient(apikey, "")
 	e := newV1Endpoint(testClient, endpointPath)
 	if e.BaseURL.String() != apiV1URL {
 		t.Errorf("V3Endpoint BaseURL mismatch. Got %s. Expected %s", e.BaseURL.String(), apiV1URL)
@@ -69,9 +69,9 @@ func TestNewV1Endpoint(t *testing.T) {
 func TestNewV3Endpoint(t *testing.T) {
 	endpointPath := "test-endpoint"
 	apikey := "testapikey"
-	testClient := NewClient(apikey)
+	testClient := NewClient(apikey, "")
 	e := newV3Endpoint(testClient, endpointPath)
-	if e.BaseURL.String() != apiV3URL {
+	if e.BaseURL.String() != apiV3URL[""] {
 		t.Errorf("V3Endpoint BaseURL mismatch. Got %s. Expected %s", e.BaseURL.String(), apiV3URL)
 	}
 	if e.EndpointPath != endpointPath {
@@ -83,7 +83,7 @@ func TestV3NewRequest(t *testing.T) {
 	endpointPath := "test-endpoint"
 	u := &url.URL{Path: "api.test.com/test-endpoint"}
 	apikey := "testapikey"
-	testClient := NewClient(apikey)
+	testClient := NewClient(apikey, "")
 	v3e := newV3Endpoint(testClient, endpointPath)
 	v3req, _ := v3e.newRequest("GET", u, nil)
 	if u, p, ok := v3req.BasicAuth(); ok {
@@ -100,7 +100,7 @@ func TestV1NewRequest(t *testing.T) {
 	endpointPath := "test-endpoint"
 	u := &url.URL{Path: "api.test.com/test-endpoint"}
 	apikey := "testapikey"
-	testClient := NewClient(apikey)
+	testClient := NewClient(apikey, "")
 	v1e := newV1Endpoint(testClient, endpointPath)
 	v1req, _ := v1e.newRequest("GET", u, nil)
 	q := v1req.URL.Query()

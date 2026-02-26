@@ -33,7 +33,7 @@ func testAPI(t *testing.T, method string, path string, body interface{}) *httpte
 }
 
 func testClient(t *testing.T, s *httptest.Server) *Client {
-	client := NewClient("testapikey")
+	client := NewClient("testapikey", "")
 	u, err := url.Parse(s.URL)
 	if err != nil {
 		t.Fail()

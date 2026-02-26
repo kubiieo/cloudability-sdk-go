@@ -6,9 +6,9 @@ import (
 )
 
 func TestNewVendorsEndpoint(t *testing.T) {
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Vendors()
-	if e.BaseURL.String() != apiV3URL {
+	if e.BaseURL.String() != apiV3URL[""] {
 		t.Errorf("VendorsEndpoint BaseURL mismatch. Got %s. Expected %s", e.BaseURL.String(), apiV3URL)
 	}
 	if e.EndpointPath != vendorsEndpoint {
@@ -78,7 +78,7 @@ func TestGetAccount(t *testing.T) {
 	result := v3Result[Account]{*expectedAccount}
 	testServer := testAPI(t, "GET", "/vendors/aws/accounts/123456789012", result)
 	defer testServer.Close()
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Vendors()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	account, err := e.GetAccount("aws", "123456789012")
@@ -98,7 +98,7 @@ func TestVerifyAccount(t *testing.T) {
 	result := v3Result[Account]{*expectedAccount}
 	testServer := testAPI(t, "POST", "/vendors/aws/accounts/123456789012/verification", result)
 	defer testServer.Close()
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Vendors()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	account, err := e.VerifyAccount("aws", "123456789012")
@@ -115,7 +115,7 @@ func TestNewLinkedAccount(t *testing.T) {
 	}
 	testServer := testAPI(t, "POST", "/vendors/aws/accounts", expectedBody)
 	defer testServer.Close()
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Vendors()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	_, err := e.NewLinkedAccount("aws", &NewLinkedAccountParams{
@@ -134,7 +134,7 @@ func TestNewMasterAccount(t *testing.T) {
 	}
 	testServer := testAPI(t, "POST", "/vendors/aws/accounts", expectedBody)
 	defer testServer.Close()
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Vendors()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	var name, prefix string
@@ -159,7 +159,7 @@ func TestNewMasterAccount(t *testing.T) {
 func TestDeleteAccount(t *testing.T) {
 	testServer := testAPI(t, "DELETE", "/vendors/aws/accounts/123456789012", nil)
 	defer testServer.Close()
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Vendors()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	err := e.DeleteAccount("aws", "123456789012")

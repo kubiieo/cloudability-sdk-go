@@ -8,9 +8,9 @@ import (
 )
 
 func TestNewUsersEndpoint(t *testing.T) {
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Users()
-	if e.BaseURL.String() != apiV3URL {
+	if e.BaseURL.String() != apiV3URL[""] {
 		t.Errorf("UsersEndpoint BaseURL mismatch. Got %s. Expected %s", e.BaseURL.String(), apiV1URL)
 	}
 	if e.EndpointPath != usersEndpoint {
@@ -79,7 +79,7 @@ func TestUpdateUser(t *testing.T) {
 		SharedDimensionFilterSetIDs: []int{0, 1},
 		DefaultDimensionFilterSetID: 0,
 	}
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Users()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	err := e.UpdateUser(user)

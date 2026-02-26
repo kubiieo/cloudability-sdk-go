@@ -16,8 +16,15 @@ import (
 
 const (
 	apiV1URL = "https://app.cloudability.com/api/1"
-	apiV3URL = "https://api.cloudability.com/v3"
 )
+
+var apiV3URL = map[string]string{
+	"":      "https://api.cloudability.com/v3",
+	"eu":    "https://api-eu.cloudability.com/v3",
+	"au":    "https://api-au.cloudability.com/v3",
+	"me":    "https://api-me.cloudability.com/v3",
+	"usgov": "https://api.usgov.cloudability.com/v3",
+}
 
 // Client - Cloudability client.
 type Client struct {
@@ -29,14 +36,14 @@ type Client struct {
 }
 
 // NewClient - This constructor creates a Cloudability client.
-func NewClient(apikey string) *Client {
+func NewClient(apikey string, region string) *Client {
 	c := &Client{
 		Client:    &http.Client{Timeout: 30 * time.Second},
 		UserAgent: "cloudability-sdk-go",
 		apikey:    apikey,
 	}
 	c.V1BaseURL, _ = url.Parse(apiV1URL)
-	c.V3BaseURL, _ = url.Parse(apiV3URL)
+	c.V3BaseURL, _ = url.Parse(apiV3URL[region])
 	return c
 }
 

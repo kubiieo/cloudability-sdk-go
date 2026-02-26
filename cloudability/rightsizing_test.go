@@ -9,9 +9,9 @@ import (
 )
 
 func TestNewRightsizingEndpoint(t *testing.T) {
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Rightsizing()
-	if e.BaseURL.String() != apiV3URL {
+	if e.BaseURL.String() != apiV3URL[""] {
 		t.Errorf("RightsizingEndpoint BaseURL mismatch. Got %s. Expected %s", e.BaseURL.String(), apiV3URL)
 	}
 	if e.EndpointPath != rightsizingEndpoint {
@@ -133,7 +133,7 @@ func TestGetResource(t *testing.T) {
 		rw.Write([]byte(resourceJSON))
 	}))
 	defer testServer.Close()
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Rightsizing()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	resource, err := e.GetResource(vendor, service, resourceIdentifier)

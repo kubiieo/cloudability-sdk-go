@@ -6,9 +6,9 @@ import (
 )
 
 func TestNewViewsEndpoint(t *testing.T) {
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Views()
-	if e.BaseURL.String() != apiV3URL {
+	if e.BaseURL.String() != apiV3URL[""] {
 		t.Errorf("ViewsEndpoint BaseURL mismatch. Got %s. Expected %s", e.BaseURL.String(), apiV3URL)
 	}
 	if e.EndpointPath != viewsEndpoint {
@@ -19,7 +19,7 @@ func TestNewViewsEndpoint(t *testing.T) {
 func TestGetViews(t *testing.T) {
 	testServer := testAPI(t, "GET", "/views", nil)
 	defer testServer.Close()
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Views()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	_, err := e.GetViews()
@@ -31,7 +31,7 @@ func TestGetViews(t *testing.T) {
 func TestGetView(t *testing.T) {
 	testServer := testAPI(t, "GET", "/views/1", nil)
 	defer testServer.Close()
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Views()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	_, err := e.GetView("1")
@@ -46,7 +46,7 @@ func TestNewView(t *testing.T) {
 	}
 	testServer := testAPI(t, "POST", "/views", view)
 	defer testServer.Close()
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Views()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	_, err := e.NewView(view)
@@ -62,7 +62,7 @@ func TestUpdateView(t *testing.T) {
 		ID:    "1",
 		Title: "Test View",
 	}
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Views()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	err := e.UpdateView(view)
@@ -74,7 +74,7 @@ func TestUpdateView(t *testing.T) {
 func TestDeleteView(t *testing.T) {
 	testServer := testAPI(t, "DELETE", "/views/1", nil)
 	defer testServer.Close()
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Views()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	err := e.DeleteView("1")

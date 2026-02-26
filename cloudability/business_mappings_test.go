@@ -7,9 +7,9 @@ import (
 )
 
 func TestNewBusinessMappingsEndpoint(t *testing.T) {
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.BusinessMappings()
-	if e.BaseURL.String() != apiV3URL {
+	if e.BaseURL.String() != apiV3URL[""] {
 		t.Errorf("BusinessMappingsEndpoint BaseURL mismatch. Got %s. Expected %s", e.BaseURL.String(), apiV3URL)
 	}
 	if e.EndpointPath != businessMappingsEndpoint {
@@ -21,7 +21,7 @@ func TestGetBusinessDimensions(t *testing.T) {
 	testServer := testAPI(t, "GET", "/business-mappings/dimensions", nil)
 	defer testServer.Close()
 
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.BusinessMappings()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	_, err := e.GetBusinessDimensions()
@@ -34,7 +34,7 @@ func TestGetBusinessDimension(t *testing.T) {
 	testServer := testAPI(t, "GET", "/business-mappings/1", nil)
 	defer testServer.Close()
 
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.BusinessMappings()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	_, err := e.GetBusinessDimension(1)
@@ -53,7 +53,7 @@ func TestNewBusinessDimension(t *testing.T) {
 	testServer := testAPI(t, "POST", "/business-mappings", dimension)
 	defer testServer.Close()
 
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.BusinessMappings()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	_, err := e.NewBusinessDimension(dimension)
@@ -73,7 +73,7 @@ func TestUpdateBusinessDimension(t *testing.T) {
 	testServer := testAPI(t, "PUT", "/business-mappings/1", dimension)
 	defer testServer.Close()
 
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.BusinessMappings()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	err := e.UpdateBusinessDimension(dimension)
@@ -85,7 +85,7 @@ func TestUpdateBusinessDimension(t *testing.T) {
 func TestDeleteBusinessDimension(t *testing.T) {
 	testServer := testAPI(t, "DELETE", "/business-mappings/1", nil)
 	defer testServer.Close()
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.BusinessMappings()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	err := e.DeleteBusinessDimension(1)
@@ -141,7 +141,7 @@ func TestMultipleBusinessMapping(t *testing.T) {
 	}
 
 	apikey := os.Getenv("CLOUDABILITY_APIKEY")
-	client := NewClient(apikey)
+	client := NewClient(apikey, "")
 	newbm1, err := client.BusinessMappings().NewBusinessDimension(&bm1)
 	if err != nil {
 		t.Fatalf("Error creating bm1: %s", err)

@@ -6,9 +6,9 @@ import (
 )
 
 func TestContainersProvisioningEndpoint(t *testing.T) {
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Containers()
-	if e.BaseURL.String() != apiV3URL {
+	if e.BaseURL.String() != apiV3URL[""] {
 		t.Errorf("ContaintersProvisioningEndpoint BaseURL mismatch. Got %s. Expected %s", e.BaseURL.String(), apiV3URL)
 	}
 	if e.EndpointPath != containersEndpoint {
@@ -20,7 +20,7 @@ func TestGetCluster(t *testing.T) {
 	testServer := testAPI(t, "GET", "/containers/provisioning", nil)
 	defer testServer.Close()
 
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Containers()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	_, err := e.GetCluster("1")
@@ -46,7 +46,7 @@ metadata:
 	testServer := testAPI(t, "GET", "/containers/provisioning/1/config", mockYAML)
 	defer testServer.Close()
 
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Containers()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 
@@ -68,7 +68,7 @@ func TestNewCluster(t *testing.T) {
 	testServer := testAPI(t, "POST", "/containers/provisioning", cluster)
 	defer testServer.Close()
 
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Containers()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	_, err := e.NewCluster(cluster)
@@ -86,7 +86,7 @@ func TestUpdateCluster(t *testing.T) {
 	testServer := testAPI(t, "PUT", "/containers/provisioning/0", cluster)
 	defer testServer.Close()
 
-	testClient := NewClient("testapikey")
+	testClient := NewClient("testapikey", "")
 	e := testClient.Containers()
 	e.BaseURL, _ = url.Parse(testServer.URL)
 	err := e.UpdateCluster(cluster)
