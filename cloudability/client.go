@@ -19,7 +19,7 @@ const (
 )
 
 var apiV3URL = map[string]string{
-	"":      "https://api.cloudability.com/v3",
+	"us":    "https://api.cloudability.com/v3",
 	"eu":    "https://api-eu.cloudability.com/v3",
 	"au":    "https://api-au.cloudability.com/v3",
 	"me":    "https://api-me.cloudability.com/v3",
