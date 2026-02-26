@@ -23,7 +23,7 @@ var apiV3URL = map[string]string{
 	"eu":    "https://api-eu.cloudability.com/v3",
 	"au":    "https://api-au.cloudability.com/v3",
 	"me":    "https://api-me.cloudability.com/v3",
-	"usgov": "https://api.usgov.cloudability.com/v3",
+	"usgov": "https://api-usgov.cloudability.com/v3",
 }
 
 // Client - Cloudability client.
