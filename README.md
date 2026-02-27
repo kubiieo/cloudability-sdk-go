@@ -1,8 +1,8 @@
 # Cloudability SDK for Go
 
-![build](https://github.com/skyscrapr/cloudability-sdk-go/workflows/build/badge.svg)
-[![Go Reference](https://pkg.go.dev/badge/github.com/skyscrapr/cloudability-sdk-go.svg)](https://pkg.go.dev/github.com/skyscrapr/cloudability-sdk-go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/skyscrapr/cloudability-sdk-go)](https://goreportcard.com/report/github.com/skyscrapr/cloudability-sdk-go)
+![build](https://github.com/kubiieo/cloudability-sdk-go/workflows/build/badge.svg)
+[![Go Reference](https://pkg.go.dev/badge/github.com/kubiieo/cloudability-sdk-go.svg)](https://pkg.go.dev/github.com/kubiieo/cloudability-sdk-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/kubiieo/cloudability-sdk-go)](https://goreportcard.com/report/github.com/kubiieo/cloudability-sdk-go)
 
 cloudability-sdk-go is an unofficial Cloudability SDK for the Go programming language.
 
@@ -10,11 +10,11 @@ cloudability-sdk-go is an unofficial Cloudability SDK for the Go programming lan
 
 Use go get to retrieve the SDK to add it to your GOPATH workspace, or project's Go module dependencies.
 
-go get github.com/skyscrapr/cloudability-sdk-go
+go get github.com/kubiieo/cloudability-sdk-go
 
 To update the SDK use go get -u to retrieve the latest version of the SDK.
 
-go get -u github.com/skyscrapr/cloudability-sdk-go
+go get -u github.com/kubiieo/cloudability-sdk-go
 
 ## Reference Documentation
 
